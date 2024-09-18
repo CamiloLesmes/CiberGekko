@@ -1,5 +1,5 @@
-import requests
-import json
+import requests   # Se usa para importar una biblioteca
+import json  # Se usa para que proporcione datos en formato JSON (Creo que cadenas como de texto )
 
 def obtenerIpDesdeDominio(dominio):
     print("------ Dominio -> "+str(dominio)+" ------")
@@ -9,9 +9,12 @@ def obtenerIpDesdeDominio(dominio):
             ip = resultadoBusqueda.json()['records']['A'][i]['address']
             resultadoRegion = requests.get("https://ipinfo.io/"+str(ip)+"/json")
             print("La region de la IP -> "+str(ip)+" es "+str(resultadoRegion.json()['region']))
+            #En este proceso se obtuvo las direcciones ip de la busqueda de el dominio de la pagina que se utilizo
+            #encontrando tambien la region, donde esta ubicada y tdo en un formato ordenado y corto para que se entienda mejor
+            #Tambien muestra cuandos dominios tiene la correspondiente pagina web
 
-dominios_empresas  = [
-    "nintendo.com",
+dominios_empresas  = [    # son los ejemplos de paginas que se tomaron para obtener las ip
+    "nintendo.com",        #En estos casos correos o paginas de videojuegos
     "playstation.com",
     "microsoft.com",
     "epicgames.com",
@@ -96,11 +99,24 @@ dominios_empresas  = [
 #for i in dominios_empresas :
 #    obtenerIpDesdeDominio(i)
 
-def obtenerEmailsDesdeDominio(dominio):
+def obtenerEmailsDesdeDominio(dominio):  # aca se define que se van a obtener correos electronicos desde el/los dominios que se usen
     resultadoEmails = requests.get ("https://api.hunter.io/v2/domain-search?domain="+str(dominio)+"&api_key=41dc41105c0eb4566ceb14d51cfd29faf24e266a")
     print(json.dumps(resultadoEmails.json()['data']['emails'],indent=4))
     if resultadoEmails.json()['data']['emails'] != None:
         for correo in range(len(resultadoEmails.json()['data']['emails'])):
             print("Correo: "+str(resultadoEmails.json()['data']['emails'][correo]['value']))
 
-obtenerEmailsDesdeDominio("riotgames.com")
+obtenerEmailsDesdeDominio("riotgames.com") #pagina de donde se tomaron los ip y los correos electronicos
+
+#En el proceso anterior gracias a el Ip de la pagina web que se uso de ejemplo tambien se pudo obtener informacion de algunos
+#correos electronicos de personas vinculadas a esa pagina en un formato ordenado de facil entendimiento
+#Algunos correos obtenidos son :
+#Correo: jsiclari@riotgames.com
+#Correo: ehebert@riotgames.com
+#Correo: dkim@riotgames.com
+#Correo: cschubert@riotgames.com
+#Correo: dnabel@riotgames.com
+#Correo: lrahal@riotgames.com
+#Correo: cgregory@riotgames.com
+#Correo: mgoeke@riotgames.com
+#Correo: sshrestha@riotgames.com
